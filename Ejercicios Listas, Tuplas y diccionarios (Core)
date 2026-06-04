@@ -1,124 +1,126 @@
-# Carga de Datos: Crea una lista de diccionarios llamada ventas
+# =====================================================================
+# 1. CARGA DE DATOS
+# =====================================================================
+# Creamos la lista de diccionarios con datos de prueba reales para analizar
 ventas = [
-    {"fecha": "2024-01-01", "producto": "Laptop", "cantidad": 2, "precio": 1200.00},
-    {"fecha": "2024-01-01", "producto": "Mouse", "cantidad": 5, "precio": 25.00},
-    {"fecha": "2024-01-02", "producto": "Teclado", "cantidad": 3, "precio": 75.00},
-    {"fecha": "2024-01-02", "producto": "Laptop", "cantidad": 1, "precio": 1200.00},
-    {"fecha": "2024-01-03", "producto": "Monitor", "cantidad": 2, "precio": 300.00},
-    {"fecha": "2024-01-03", "producto": "Mouse", "cantidad": 10, "precio": 25.00},
-    {"fecha": "2024-01-04", "producto": "Teclado", "cantidad": 1, "precio": 75.00},
-    {"fecha": "2024-01-04", "producto": "Laptop", "cantidad": 3, "precio": 1200.00},
-    {"fecha": "2024-01-05", "producto": "Webcam", "cantidad": 4, "precio": 50.00}
+    {"fecha": "2024-01-01", "producto": "Teclado", "cantidad": 5, "precio": 25.0},
+    {"fecha": "2024-01-01", "producto": "Mouse", "cantidad": 10, "precio": 15.0},
+    {"fecha": "2024-01-02", "producto": "Teclado", "cantidad": 3, "precio": 25.0},
+    {"fecha": "2024-01-02", "producto": "Monitor", "cantidad": 2, "precio": 150.0},
+    {"fecha": "2024-01-03", "producto": "Mouse", "cantidad": 2, "precio": 12.0}
 ]
 
-print("--- Lista de Ventas Original ---")
-for venta in ventas:
-    print(venta)
-
-
-# Cálculo de Ingresos Totales:
-
-ingresos_totales = 0
+# =====================================================================
+# 2. CÁLCULO DE INGRESOS TOTALES
+# =====================================================================
+ingresos_totales = 0.0
 for venta in ventas:
     ingresos_totales += venta["cantidad"] * venta["precio"]
 
-print(f"\n--- Ingresos Totales Generados: ${ingresos_totales:,.2f} ---")
-
-
-# Análisis del Producto Más Vendido:
-
+# =====================================================================
+# 3. ANÁLISIS DEL PRODUCTO MÁS VENDIDO
+# =====================================================================
 ventas_por_producto = {}
 for venta in ventas:
-    producto = venta["producto"]
-    cantidad = venta["cantidad"]
-    ventas_por_producto[producto] = ventas_por_producto.get(producto, 0) + cantidad
+    prod = venta["producto"]
+    cant = venta["cantidad"]
+    if prod in ventas_por_producto:
+        ventas_por_producto[prod] += cant
+    else:
+        ventas_por_producto[prod] = cant
 
+# Buscamos cuál es el mayor de la estructura ventas_por_producto
 producto_mas_vendido = None
-max_cantidad_vendida = 0
-for producto, cantidad_total in ventas_por_producto.items():
-    if cantidad_total > max_cantidad_vendida:
-        max_cantidad_vendida = cantidad_total
-        producto_mas_vendido = producto
+max_cantidad = 0
+for prod, cant in ventas_por_producto.items():
+    if cant > max_cantidad:
+        max_cantidad = cant
+        producto_mas_vendido = prod
 
-print("\n--- Producto Más Vendido ---")
-print(f"El producto más vendido es '{producto_mas_vendido}' con una cantidad total de {max_cantidad_vendida} unidades.")
-
-
-# Promedio de Precio por Producto:
-
+# =====================================================================
+# 4. PROMEDIO DE PRECIO POR PRODUCTO
+# =====================================================================
 precios_por_producto = {}
 for venta in ventas:
-    producto = venta["producto"]
-    cantidad = venta["cantidad"]
-    precio = venta["precio"]
+    prod = venta["producto"]
+    ingreso_registro = venta["cantidad"] * venta["precio"]
+    cant = venta["cantidad"]
     
-    # sum_precios_unidades, total_unidades_vendidas
-    if producto not in precios_por_producto:
-        precios_por_producto[producto] = [0.0, 0]
-    precios_por_producto[producto][0] += precio * cantidad
-    precios_por_producto[producto][1] += cantidad
-
-precio_promedio_por_producto = {}
-print("\n--- Precio Promedio por Producto ---")
-for producto, (sum_precios, total_unidades) in precios_por_producto.items():
-    if total_unidades > 0:
-        promedio = sum_precios / total_unidades
-        precio_promedio_por_producto[producto] = promedio
-        print(f"Producto: {producto}, Precio Promedio: ${promedio:,.2f}")
+    if prod in precios_por_producto:
+        suma_ingresos, cant_total = precios_por_producto[prod]
+        precios_por_producto[prod] = (suma_ingresos + ingreso_registro, cant_total + cant)
     else:
-        precio_promedio_por_producto[producto] = 0.0
-        print(f"Producto: {producto}, Sin ventas registradas.")
+        precios_por_producto[prod] = (ingreso_registro, cant)
 
-
-# Ventas por Día:
-
+# =====================================================================
+# 5. VENTAS POR DÍA
+# =====================================================================
 ingresos_por_dia = {}
 for venta in ventas:
     fecha = venta["fecha"]
-    ingreso_venta = venta["cantidad"] * venta["precio"]
-    ingresos_por_dia[fecha] = ingresos_por_dia.get(fecha, 0.0) + ingreso_venta
-
-print("\n--- Ingresos Totales por Día ---")
-for fecha, ingresos in ingresos_por_dia.items():
-    print(f"Fecha: {fecha}, Ingresos: ${ingresos:,.2f}")
-
-
-# Representación de Datos: resumen_ventas
-
-resumen_ventas = {}
-for venta in ventas:
-    producto = venta["producto"]
-    cantidad = venta["cantidad"]
-    precio = venta["precio"]
-    ingreso_venta = cantidad * precio
-
-    if producto not in resumen_ventas:
-        resumen_ventas[producto] = {
-            "cantidad_total": 0,
-            "ingresos_totales": 0.0,
-            "suma_precios_unitarios": 0.0, # Helper for average
-            "conteo_ventas": 0 # Helper for average
-        }
+    ingreso_registro = venta["cantidad"] * venta["precio"]
     
-    resumen_ventas[producto]["cantidad_total"] += cantidad
-    resumen_ventas[producto]["ingresos_totales"] += ingreso_venta
-    resumen_ventas[producto]["suma_precios_unitarios"] += precio * cantidad # Sum of (unit_price * quantity)
-    resumen_ventas[producto]["conteo_ventas"] += cantidad # Total quantity for weighted average
-
-# Calculate final precio_promedio (weighted by quantity sold)
-for producto, data in resumen_ventas.items():
-    if data["conteo_ventas"] > 0:
-        data["precio_promedio"] = data["suma_precios_unitarios"] / data["conteo_ventas"]
+    if fecha in ingresos_por_dia:
+        ingresos_por_dia[fecha] += ingreso_registro
     else:
-        data["precio_promedio"] = 0.0
-    
-    # Remove helper keys
-    del data["suma_precios_unitarios"]
-    del data["conteo_ventas"]
+        ingresos_por_dia[fecha] = ingreso_registro
 
-print("\n--- Resumen de Ventas por Producto ---")
-for producto, data in resumen_ventas.items():
-    print(f"Producto: {producto}")
-    print(f"  Cantidad Total: {data['cantidad_total']}")
-    print(f"  Ingresos Totales: ${data['ingresos_totales']:,.2f}")
-    print(f"  Precio Promedio: ${data['precio_promedio']:,.2f}")
+# =====================================================================
+# 6. REPRESENTACIÓN DE DATOS (resumen_ventas)
+# =====================================================================
+resumen_ventas = {}
+for prod in ventas_por_producto:
+    cant_total = ventas_por_producto[prod]
+    suma_ingresos, _ = precios_por_producto[prod]
+    precio_promedio = suma_ingresos / cant_total
+    
+    resumen_ventas[prod] = {
+        "cantidad_total": cant_total,
+        "ingresos_totales": suma_ingresos,
+        "precio_promedio": round(precio_promedio, 2)
+    }
+
+# =====================================================================
+# GENERACIÓN AUTOMÁTICA DEL REPORTE DE TEXTO (Para la entrega)
+# =====================================================================
+print("======================================================================")
+print("REPORTE DE ANÁLISIS DE VENTAS (RESULTADOS OBTENIDOS)")
+print("======================================================================\n")
+
+print("1. LISTA DE VENTAS ORIGINAL")
+print("----------------------------------------------------------------------")
+for v in ventas:
+    print(v)
+print("\n" + "-"*70 + "\n")
+
+print("2. INGRESOS TOTALES GENERADOS")
+print("----------------------------------------------------------------------")
+print(f"Paso: Multiplicación de cantidad * precio acumulado en bucle.")
+print(f"Resultado: ${ingresos_totales:.2f}")
+print("\n" + "-"*70 + "\n")
+
+print("3. PRODUCTO MÁS VENDIDO")
+print("----------------------------------------------------------------------")
+print(f"Paso: Agrupación en diccionario 'ventas_por_producto'.")
+print(f"Resultado: {producto_mas_vendido} (Cantidad total vendida: {max_cantidad} unidades)")
+print("\n" + "-"*70 + "\n")
+
+print("4. PRECIO PROMEDIO DE VENTA POR PRODUCTO")
+print("----------------------------------------------------------------------")
+print(f"Paso: ingresos_totales_del_producto / cantidad_total_vendida.")
+for prod, datos in resumen_ventas.items():
+    print(f"- {prod}: ${datos['precio_promedio']:.2f}")
+print("\n" + "-"*70 + "\n")
+
+print("5. INGRESOS TOTALES POR DÍA")
+print("----------------------------------------------------------------------")
+print(f"Paso: Acumulación de ingresos filtrados por la clave 'fecha'.")
+for dia, ingresos in ingresos_por_dia.items():
+    print(f"- {dia}: ${ingresos:.2f}")
+print("\n" + "-"*70 + "\n")
+
+print("6. DICCIONARIO 'RESUMEN_VENTAS' (ESTRUCTURA ANIDADA REQUERIDA)")
+print("----------------------------------------------------------------------")
+import json
+print(json.dumps(resumen_ventas, indent=4, ensure_ascii=False))
+print("\n======================================================================")
