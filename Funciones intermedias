@@ -1,100 +1,108 @@
-1. Actualizar valores en diccionarios y listas
-
-matriz = [ [10, 15, 20], [3, 7, 14] ]
-cantantes = [
-    {"nombre": "Ricky Martin", "pais": "Puerto Rico"},
-    {"nombre": "Chayanne", "pais": "Puerto Rico"}
+# 1. CARGA DE DATOS
+# Creamos la lista de diccionarios con datos de prueba reales para analizar
+ventas = [
+    {"fecha": "2024-01-01", "producto": "Teclado", "cantidad": 5, "precio": 25.0},
+    {"fecha": "2024-01-01", "producto": "Mouse", "cantidad": 10, "precio": 15.0},
+    {"fecha": "2024-01-02", "producto": "Teclado", "cantidad": 3, "precio": 25.0},
+    {"fecha": "2024-01-02", "producto": "Monitor", "cantidad": 2, "precio": 150.0},
+    {"fecha": "2024-01-03", "producto": "Mouse", "cantidad": 2, "precio": 12.0}
 ]
 
-ciudades = {
-    "México": ["Ciudad de México", "Guadalajara", "Cancún"],
-    "Chile": ["Santiago", "Concepción", "Viña del Mar"]
-}
+# 2. CÁLCULO DE INGRESOS TOTALES
 
-coordenadas = [
-    {"latitud": 8.2588997, "longitud": -84.9399704}
-]
+ingresos_totales = 0.0
+for venta in ventas:
+    ingresos_totales += venta["cantidad"] * venta["precio"]
 
-# - Cambia el valor de 3 en matriz por 6
-matriz[1][0] = 6
+# 3. ANÁLISIS DEL PRODUCTO MÁS VENDIDO
 
-# - Cambia el nombre del primer cantante a “Enrique Martin Morales”
-cantantes[0]["nombre"] = "Enrique Martin Morales"
+ventas_por_producto = {}
+for venta in ventas:
+    prod = venta["producto"]
+    cant = venta["cantidad"]
+    if prod in ventas_por_producto:
+        ventas_por_producto[prod] += cant
+    else:
+        ventas_por_producto[prod] = cant
 
-# - En ciudades, cambia “Cancún” por “Monterrey”
-ciudades["México"][2] = "Monterrey"
+# Buscamos cuál es el mayor de la estructura ventas_por_producto
+producto_mas_vendido = None
+max_cantidad = 0
+for prod, cant in ventas_por_producto.items():
+    if cant > max_cantidad:
+        max_cantidad = cant
+        producto_mas_vendido = prod
 
-# - En las coordenadas, cambia el valor de “latitud” por 9.9355431
-coordenadas[0]["latitud"] = 9.9355431
+# 4. PROMEDIO DE PRECIO POR PRODUCTO
 
+precios_por_producto = {}
+for venta in ventas:
+    prod = venta["producto"]
+    ingreso_registro = venta["cantidad"] * venta["precio"]
+    cant = venta["cantidad"]
+    
+    if prod in precios_por_producto:
+        suma_ingresos, cant_total = precios_por_producto[prod]
+        precios_por_producto[prod] = (suma_ingresos + ingreso_registro, cant_total + cant)
+    else:
+        precios_por_producto[prod] = (ingreso_registro, cant)
 
-# ==========================================
-# 2. Iterar a través de una lista de diccionarios
-# ==========================================
+# 5. VENTAS POR DÍA
 
-def iterarDiccionario(lista):
-    for diccionario in lista:
-        # Usamos una lista de comprensión para formatear cada par clave - valor
-        linea = [f"{clave} - {valor}" for clave, valor in diccionario.items()]
-        # Unimos los elementos con una coma y un espacio (Formato BONUS)
-        print(", ".join(linea))
+ingresos_por_dia = {}
+for venta in ventas:
+    fecha = venta["fecha"]
+    ingreso_registro = venta["cantidad"] * venta["precio"]
+    
+    if fecha in ingresos_por_dia:
+        ingresos_por_dia[fecha] += ingreso_registro
+    else:
+        ingresos_por_dia[fecha] = ingreso_registro
+# 6. REPRESENTACIÓN DE DATOS (resumen_ventas)
 
-
-# ==========================================
-# 3. Obtener valores de una lista de diccionarios
-# ==========================================
-
-def iterarDiccionario2(llave, lista):
-    for diccionario in lista:
-        if llave in diccionario:
-            print(diccionario[llave])
-
-
-# ==========================================
-# 4. Iterar a través de un diccionario con valores de lista
-# ==========================================
-
-def imprimirInformacion(diccionario):
-    for clave, lista in diccionario.items():
-        # Imprime la longitud de la lista y la clave en MAYÚSCULAS
-        print(f"{len(lista)} {clave.upper()}")
-        for elemento in lista:
-            print(elemento)
-        print("") # Línea en blanco para separar secciones
-
-
-# ==========================================
-# SECCIÓN DE PRUEBAS (Para verificar que todo funcione)
-# ==========================================
-if __name__ == "__main__":
-    print("--- PRUEBA EJERCICIO 1 (Estructuras actualizadas) ---")
-    print("Matriz:", matriz)
-    print("Cantantes:", cantantes)
-    print("Ciudades:", ciudades)
-    print("Coordenadas:", coordenadas)
-    print("\n" + "-"*40 + "\n")
-
-    cantantes_prueba = [
-        {"nombre": "Ricky Martin", "pais": "Puerto Rico"},
-        {"nombre": "Chayanne", "pais": "Puerto Rico"},
-        {"nombre": "José José", "pais": "México"},
-        {"nombre": "Juan Luis Guerra", "pais": "República Dominicana"}
-    ]
-
-    print("--- PRUEBA EJERCICIO 2 (iterarDiccionario) ---")
-    iterarDiccionario(cantantes_prueba)
-    print("\n" + "-"*40 + "\n")
-
-    print("--- PRUEBA EJERCICIO 3 (iterarDiccionario2) ---")
-    print("Prueba con 'nombre':")
-    iterarDiccionario2("nombre", cantantes_prueba)
-    print("\nPrueba con 'pais':")
-    iterarDiccionario2("pais", cantantes_prueba)
-    print("\n" + "-"*40 + "\n")
-
-    print("--- PRUEBA EJERCICIO 4 (imprimirInformacion) ---")
-    costa_rica = {
-        "ciudades": ["San José", "Limón", "Cartago", "Puntarenas"],
-        "comidas": ["gallo pinto", "casado", "tamales", "chifrijo", "olla de carne"]
+resumen_ventas = {}
+for prod in ventas_por_producto:
+    cant_total = ventas_por_producto[prod]
+    suma_ingresos, _ = precios_por_producto[prod]
+    precio_promedio = suma_ingresos / cant_total
+    
+    resumen_ventas[prod] = {
+        "cantidad_total": cant_total,
+        "ingresos_totales": suma_ingresos,
+        "precio_promedio": round(precio_promedio, 2)
     }
-    imprimirInformacion(costa_rica)
+
+# GENERACIÓN AUTOMÁTICA DEL REPORTE DE TEXTO (Para la entrega)
+
+print("REPORTE DE ANÁLISIS DE VENTAS (RESULTADOS OBTENIDOS)")
+
+print("1. LISTA DE VENTAS ORIGINAL")
+for v in ventas:
+    print(v)
+print("\n" + "-"*70 + "\n")
+
+print("2. INGRESOS TOTALES GENERADOS")
+print(f"Paso: Multiplicación de cantidad * precio acumulado en bucle.")
+print(f"Resultado: ${ingresos_totales:.2f}")
+print("\n" + "-"*70 + "\n")
+
+print("3. PRODUCTO MÁS VENDIDO")
+print(f"Paso: Agrupación en diccionario 'ventas_por_producto'.")
+print(f"Resultado: {producto_mas_vendido} (Cantidad total vendida: {max_cantidad} unidades)")
+print("\n" + "-"*70 + "\n")
+
+print("4. PRECIO PROMEDIO DE VENTA POR PRODUCTO")
+print(f"Paso: ingresos_totales_del_producto / cantidad_total_vendida.")
+for prod, datos in resumen_ventas.items():
+    print(f"- {prod}: ${datos['precio_promedio']:.2f}")
+print("\n" + "-"*70 + "\n")
+
+print("5. INGRESOS TOTALES POR DÍA")
+print(f"Paso: Acumulación de ingresos filtrados por la clave 'fecha'.")
+for dia, ingresos in ingresos_por_dia.items():
+    print(f"- {dia}: ${ingresos:.2f}")
+print("\n" + "-"*70 + "\n")
+
+print("6. DICCIONARIO 'RESUMEN_VENTAS' (ESTRUCTURA ANIDADA REQUERIDA)")
+import json
+print(json.dumps(resumen_ventas, indent=4, ensure_ascii=False))
