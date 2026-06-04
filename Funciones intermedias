@@ -1,108 +1,43 @@
-# 1. CARGA DE DATOS
-# Creamos la lista de diccionarios con datos de prueba reales para analizar
-ventas = [
-    {"fecha": "2024-01-01", "producto": "Teclado", "cantidad": 5, "precio": 25.0},
-    {"fecha": "2024-01-01", "producto": "Mouse", "cantidad": 10, "precio": 15.0},
-    {"fecha": "2024-01-02", "producto": "Teclado", "cantidad": 3, "precio": 25.0},
-    {"fecha": "2024-01-02", "producto": "Monitor", "cantidad": 2, "precio": 150.0},
-    {"fecha": "2024-01-03", "producto": "Mouse", "cantidad": 2, "precio": 12.0}
-]
+## Tarea 1: Básico
+# Imprime todos los números enteros del 0 al 100.
+for i in range(101):
+    print(i)
 
-# 2. CÁLCULO DE INGRESOS TOTALES
+## Tarea 2: Múltiples de 2
+# Imprime todos los números múltiplos de 2 entre 2 y 500.
+for i in range(2, 501, 2):
+    print(i)
 
-ingresos_totales = 0.0
-for venta in ventas:
-    ingresos_totales += venta["cantidad"] * venta["precio"]
-
-# 3. ANÁLISIS DEL PRODUCTO MÁS VENDIDO
-
-ventas_por_producto = {}
-for venta in ventas:
-    prod = venta["producto"]
-    cant = venta["cantidad"]
-    if prod in ventas_por_producto:
-        ventas_por_producto[prod] += cant
+## Tarea 3: Contando Vanilla Ice
+# Imprime los números enteros del 1 al 100. Si es divisible por 5 imprime “ice ice” en vez del número. Si es divisible por 10, imprime “baby”.
+for i in range(1, 101):
+    if i % 10 == 0:
+        print("baby")
+    elif i % 5 == 0:
+        print("ice ice")
     else:
-        ventas_por_producto[prod] = cant
+        print(i)
 
-# Buscamos cuál es el mayor de la estructura ventas_por_producto
-producto_mas_vendido = None
-max_cantidad = 0
-for prod, cant in ventas_por_producto.items():
-    if cant > max_cantidad:
-        max_cantidad = cant
-        producto_mas_vendido = prod
+## Tarea 4: Wow. Número gigante a la vista
+# Suma los números pares del 0 al 500,000 e imprime la suma total.
+total = 0
+for i in range(0, 500001, 2):
+    total += i
+print(f"La suma entre los números pares hasta el 500,000 es: {total}")
 
-# 4. PROMEDIO DE PRECIO POR PRODUCTO
+## Tarea 5: Regrésame al 3
+# Imprime los números positivos comenzando desde 2024, en cuenta regresiva de 3 en 3.
+for i in range(2024, 0, -3):
+    print(i)
 
-precios_por_producto = {}
-for venta in ventas:
-    prod = venta["producto"]
-    ingreso_registro = venta["cantidad"] * venta["precio"]
-    cant = venta["cantidad"]
-    
-    if prod in precios_por_producto:
-        suma_ingresos, cant_total = precios_por_producto[prod]
-        precios_por_producto[prod] = (suma_ingresos + ingreso_registro, cant_total + cant)
-    else:
-        precios_por_producto[prod] = (ingreso_registro, cant)
+## Tarea 6: Contador dinámico
+# Establece tres variables: numInicial, numFinal y multiplo. Comenzando en numInicial 
+# y pasando por numFinal, imprime los números enteros que sean múltiplos de multiplo.
 
-# 5. VENTAS POR DÍA
+numInicial = 3
+numFinal = 10
+multiplo = 2
 
-ingresos_por_dia = {}
-for venta in ventas:
-    fecha = venta["fecha"]
-    ingreso_registro = venta["cantidad"] * venta["precio"]
-    
-    if fecha in ingresos_por_dia:
-        ingresos_por_dia[fecha] += ingreso_registro
-    else:
-        ingresos_por_dia[fecha] = ingreso_registro
-# 6. REPRESENTACIÓN DE DATOS (resumen_ventas)
-
-resumen_ventas = {}
-for prod in ventas_por_producto:
-    cant_total = ventas_por_producto[prod]
-    suma_ingresos, _ = precios_por_producto[prod]
-    precio_promedio = suma_ingresos / cant_total
-    
-    resumen_ventas[prod] = {
-        "cantidad_total": cant_total,
-        "ingresos_totales": suma_ingresos,
-        "precio_promedio": round(precio_promedio, 2)
-    }
-
-# GENERACIÓN AUTOMÁTICA DEL REPORTE DE TEXTO (Para la entrega)
-
-print("REPORTE DE ANÁLISIS DE VENTAS (RESULTADOS OBTENIDOS)")
-
-print("1. LISTA DE VENTAS ORIGINAL")
-for v in ventas:
-    print(v)
-print("\n" + "-"*70 + "\n")
-
-print("2. INGRESOS TOTALES GENERADOS")
-print(f"Paso: Multiplicación de cantidad * precio acumulado en bucle.")
-print(f"Resultado: ${ingresos_totales:.2f}")
-print("\n" + "-"*70 + "\n")
-
-print("3. PRODUCTO MÁS VENDIDO")
-print(f"Paso: Agrupación en diccionario 'ventas_por_producto'.")
-print(f"Resultado: {producto_mas_vendido} (Cantidad total vendida: {max_cantidad} unidades)")
-print("\n" + "-"*70 + "\n")
-
-print("4. PRECIO PROMEDIO DE VENTA POR PRODUCTO")
-print(f"Paso: ingresos_totales_del_producto / cantidad_total_vendida.")
-for prod, datos in resumen_ventas.items():
-    print(f"- {prod}: ${datos['precio_promedio']:.2f}")
-print("\n" + "-"*70 + "\n")
-
-print("5. INGRESOS TOTALES POR DÍA")
-print(f"Paso: Acumulación de ingresos filtrados por la clave 'fecha'.")
-for dia, ingresos in ingresos_por_dia.items():
-    print(f"- {dia}: ${ingresos:.2f}")
-print("\n" + "-"*70 + "\n")
-
-print("6. DICCIONARIO 'RESUMEN_VENTAS' (ESTRUCTURA ANIDADA REQUERIDA)")
-import json
-print(json.dumps(resumen_ventas, indent=4, ensure_ascii=False))
+for i in range(numInicial, numFinal + 1):
+    if i % multiplo == 0:
+        print(i)
