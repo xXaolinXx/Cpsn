@@ -1,19 +1,44 @@
-## Tarea 1: Básico
-Imprime todos los números enteros del 0 al 100.
+Básico: imprime todos los números enteros del 0 al 100.
 
-for i in range(101):
+Múltiples de 2: imprime todos los números múltiplos de 2 entre 2 y 500
+
+Contando Vanilla Ice: imprime los números enteros del 1 al 100. Si es divisible por 5 imprime “ice ice” en vez del número. Si es divisible por 10, imprime “baby”
+
+Wow. Número gigante a la vista: suma los números pares del 0 al 500,000 e imprime la suma total. (Sorpresa, será un número gigante).
+
+Regrésame al 3: imprime los números positivos comenzando desde 2024, en cuenta regresiva de 3 en 3.
+
+Contador dinámico: establece tres variables: numInicial, numFinal y multiplo.
+ Comenzando en numInicial y pasando por numFinal, imprime los números enteros que sean múltiplos de multiplo. Por ejemplo: si numInicial = 3, numFinal = 10, y multiplo = 2, el bucle debería de imprimir 4, 6, 8, 10 (en líneas sucesivas).
+
+Crea el archivo un Python llamado bucle_for_básico1.py
+
+Codifica el ejercicio 1. Básico
+
+Codifica el ejercicio 2. Múltiples de 2
+
+Codifica el ejercicio 3. Contando Vanilla Ice
+
+Codifica el ejercicio 4. Wow. Número gigante a la vista
+
+Codifica el ejercicio 5. Regrésame al 3
+
+Codifica el ejercicio 6. Contador dinámico
+
+
+#Tarea 1
+
+for i in range(101): #bucle del 0 al 100 y luego se termina solo
   print(i)
 
-## Tarea 2: Múltiples de 2
-Imprime todos los números múltiplos de 2 entre 2 y 500.
+#Tarea 2
 
-for i in range(2, 501, 2):
+for i in range(2, 501, 2): #bucle de 2x2 hasta el 500
     print(i)
 
-## Tarea 3: Contando Vanilla Ice
-Imprime los números enteros del 1 al 100. Si es divisible por 5 imprime “ice ice” en vez del número. Si es divisible por 10, imprime “baby”.
+#Tarea 3
 
-for i in range(1, 101):
+for i in range(1, 101): # cada 10 numeros dice baby y cada 5 dice ice
     if i % 10 == 0:
         print("baby")
     elif i % 5 == 0:
@@ -21,19 +46,26 @@ for i in range(1, 101):
     else:
         print(i)
 
-## Tarea 4: Wow. Número gigante a la vista
-Suma los números pares del 0 al 500,000 e imprime la suma total.
+#Tarea 4
 
 total = 0
-for i in range(0, 500001, 2):
+for i in range(0, 500001, 2): #suma de entre todos los numeros pares que se encuentren del 0 hasta el 500000
     total += i
 print(f"La suma entre los números pares hasta el 500,000 es: {total}")
 
-## Tarea 5: Regrésame al 3
-Imprime los números positivos comenzando desde 2024, en cuenta regresiva de 3 en 3.
+#Tarea 5
 
-for i in range(2024, 0, -3):
+for i in range(2024, 0, -3):# el limite es entre 2024 y el 0 y se va devolviendo desde el 2024 a el 0. es como una cuenta regresiva pero en reversa
     print(i)
 
-## Tarea 6: Contador dinámico
-Establece tres variables: `numInicial`, `numFinal` y `multiplo`. Comenzando en `numInicial` y pasando por `numFinal`, imprime los números enteros que sean múltiplos de `multiplo`.
+#Tarea 6
+
+num_Inicial = 3 # Estos son los numeros de el final  y el inicio los cuales limitan a que el numero siga y va en 2 porque el multiplo es de 2
+num_Final = 10
+multiplo = 2
+
+print(f"Contador Inicial= {num_Inicial}, Final= {num_Final}, Multiplo= {multiplo}:")
+
+for i in range(num_Inicial, num_Final + 1):
+    if i % multiplo == 0:
+        print(i)
