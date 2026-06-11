@@ -1,4 +1,4 @@
-# 1. CARGA DE DATOS
+# 1. Ejercicio : CARGA DE DATOS
 # Creamos la lista de diccionarios con datos de prueba reales para analizar
 ventas = [
     {"fecha": "2024-01-01", "producto": "Teclado", "cantidad": 5, "precio": 25.0},
@@ -8,13 +8,13 @@ ventas = [
     {"fecha": "2024-01-03", "producto": "Mouse", "cantidad": 2, "precio": 12.0}
 ]
 
-# 2. CÁLCULO DE INGRESOS TOTALES
+# 2. Ejercicio : CÁLCULO DE INGRESOS TOTALES
 
 ingresos_totales = 0.0
 for venta in ventas:
     ingresos_totales += venta["cantidad"] * venta["precio"]
 
-# 3. ANÁLISIS DEL PRODUCTO MÁS VENDIDO
+# 3. Ejercicio : ANÁLISIS DEL PRODUCTO MÁS VENDIDO
 
 ventas_por_producto = {}
 for venta in ventas:
@@ -33,7 +33,7 @@ for prod, cant in ventas_por_producto.items():
         max_cantidad = cant
         producto_mas_vendido = prod
 
-# 4. PROMEDIO DE PRECIO POR PRODUCTO
+# 4. Ejercicio : PROMEDIO DE PRECIO POR PRODUCTO
 
 precios_por_producto = {}
 for venta in ventas:
@@ -47,7 +47,7 @@ for venta in ventas:
     else:
         precios_por_producto[prod] = (ingreso_registro, cant)
 
-# 5. VENTAS POR DÍA
+# 5. Ejercicio : VENTAS POR DÍA
 
 ingresos_por_dia = {}
 for venta in ventas:
