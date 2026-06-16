@@ -1,43 +1,45 @@
-## Ejercicio 1: Básico
-# Imprime todos los números enteros del 0 al 100.
-for i in range(101):
-    print(i)
+# Ejercicio 1: Actualizar valores en diccionarios y listas
 
-## Ejercicio 2: Múltiples de 2
-# Imprime todos los números múltiplos de 2 entre 2 y 500.
-for i in range(2, 501, 2):
-    print(i)
+# 1. Definición de las estructuras de datos originales proporcionadas en la rúbrica
+matriz = [ [10, 15, 20], [3, 7, 14] ]
 
-## Ejercicio 3: Contando Vanilla Ice
-# Imprime los números enteros del 1 al 100. Si es divisible por 5 imprime “ice ice” en vez del número. Si es divisible por 10, imprime “baby”.
-for i in range(1, 101):
-    if i % 10 == 0:
-        print("baby")
-    elif i % 5 == 0:
-        print("ice ice")
-    else:
-        print(i)
+cantantes = [
+    {"nombre": "Ricky Martin", "pais": "Puerto Rico"},
+    {"nombre": "Chayanne", "pais": "Puerto Rico"}
+]
 
-## Ejercicio 4: Wow. Número gigante a la vista
-# Suma los números pares del 0 al 500,000 e imprime la suma total.
-total = 0
-for i in range(0, 500001, 2):
-    total += i
-print(f"La suma entre los números pares hasta el 500,000 es: {total}")
+ciudades = {
+    "México": ["Ciudad de México", "Guadalajara", "Cancún"],
+    "Chile": ["Santiago", "Concepción", "Viña del Mar"]
+}
 
-## Ejercicio 5: Regrésame al 3
-# Imprime los números positivos comenzando desde 2024, en cuenta regresiva de 3 en 3.
-for i in range(2024, 0, -3):
-    print(i)
+coordenadas = [
+    {"latitud": 8.2588997, "longitud": -84.9399704}
+]
 
-## Tarea 6: Contador dinámico
-# Establece tres variables: numInicial, numFinal y multiplo. Comenzando en numInicial 
-# y pasando por numFinal, imprime los números enteros que sean múltiplos de multiplo.
 
-numInicial = 3
-numFinal = 10
-multiplo = 2
+# 2. Modificaciones solicitadas:
 
-for i in range(numInicial, numFinal + 1):
-    if i % multiplo == 0:
-        print(i)
+# a) Cambia el valor de 3 en matriz por 6.
+# El número 3 está en la segunda lista (índice 1), primera posición (índice 0).
+matriz[1][0] = 6
+
+# b) Cambia el nombre del primer cantante de “Ricky Martin” a “Enrique Martin Morales”.
+# Accedemos al primer elemento de la lista (índice 0) y modificamos la clave "nombre".
+cantantes[0]["nombre"] = "Enrique Martin Morales"
+
+# c) En ciudades, cambia “Cancún” por “Monterrey”.
+# "Cancún" está en la lista de la clave "México", en la tercera posición (índice 2).
+ciudades["México"][2] = "Monterrey"
+
+# d) En las coordenadas, cambia el valor de “latitud” por 9.9355431.
+# Accedemos al primer diccionario de la lista (índice 0) y modificamos la clave "latitud".
+coordenadas[0]["latitud"] = 9.9355431
+
+
+# 3. Comprobación (Impresión en consola para verificar que los cambios son correctos)
+print("--- RESULTADOS EJERCICIO 1 ---")
+print("Matriz corregida:", matriz)
+print("Cantantes corregido:", cantantes)
+print("Ciudades corregidas:", ciudades)
+print("Coordenadas corregidas:", coordenadas)
