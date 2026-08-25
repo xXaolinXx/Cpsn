@@ -1,0 +1,28 @@
+# Ejercicio 1: Saludo Personalizado
+nombre = input('Por favor, introduce tu nombre: ')
+edad = input('Por favor, introduce tu edad: ')
+print(f'Hola {nombre}! Veo que tienes {edad} años. Encantado de conocerte.')
+
+# Ejercicio 2: Manipulación de Cadenas
+nombre_completo = 'Tomas Romero Astorga'
+
+nombre_mayusculas = nombre_completo.upper()
+nombre_minusculas = nombre_completo.lower()
+print(f'Nombre en mayúsculas: {nombre_mayusculas}')
+print(f'Nombre en minúsculas: {nombre_minusculas}')
+
+numero_letras = len(nombre_completo.replace(' ', ''))
+print(f'Número de letras en el nombre: {numero_letras}')
+
+primer_nombre_reemplazo = 'Carlos'
+nombre_modificado = nombre_completo.replace('Alejandro', primer_nombre_reemplazo, 1)
+print(f'Nombre con primer nombre reemplazado: {nombre_modificado}')
+
+# Ejercicio 3: Lista de Nombres
+nombres_str = input('Introduce una lista de nombres separados por comas Ejemplo (Ana, Juan, María): ')
+
+lista_nombres = [nombre.strip() for nombre in nombres_str.split(',')]
+
+print('Los nombres ingresados son:')
+for nombre in lista_nombres:
+    print(nombre)
